@@ -43,7 +43,7 @@ class Products
     /**
      * @var string
      *
-     * @ORM\Column(name="miniature", type="string", length=255, nullable=false)
+     * @ORM\Column(name="miniature", type="string", length=255, nullable=true)
      */
     private $miniature;
 
@@ -75,6 +75,134 @@ class Products
      * })
      */
     private $categoriescategory;
+
+    /**
+     * @return string
+     */
+    public function getProductName(): ?string
+    {
+        return $this->productName;
+    }
+
+    /**
+     * @param string $productName
+     */
+    public function setProductName(string $productName)
+    {
+        $this->productName = $productName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProductDescription(): ?string
+    {
+        return $this->productDescription;
+    }
+
+    /**
+     * @param string $productDescription
+     */
+    public function setProductDescription(string $productDescription)
+    {
+        $this->productDescription = $productDescription;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProductSize(): ?string
+    {
+        return $this->productSize;
+    }
+
+    /**
+     * @param string $productSize
+     */
+    public function setProductSize(string $productSize)
+    {
+        $this->productSize = $productSize;
+    }
+
+    /**
+     * @return int
+     */
+    public function getProductAmount(): ?int
+    {
+        return $this->productAmount;
+    }
+
+    /**
+     * @param int $productAmount
+     */
+    public function setProductAmount(int $productAmount)
+    {
+        $this->productAmount = $productAmount;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMiniature(): ?string
+    {
+        return $this->miniature;
+    }
+
+    /**
+     * @param string $miniature
+     */
+    public function setMiniature(string $miniature)
+    {
+        $this->miniature = $miniature;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdproducts(): ?int
+    {
+        return $this->idproducts;
+    }
+
+    /**
+     * @param int $idproducts
+     */
+    public function setIdproducts(int $idproducts)
+    {
+        $this->idproducts = $idproducts;
+    }
+
+    /**
+     * @return Brands
+     */
+    public function getBrandsbrand(): ?Brands
+    {
+        return $this->brandsbrand;
+    }
+
+    /**
+     * @param Brands $brandsbrand
+     */
+    public function setBrandsbrand(Brands $brandsbrand)
+    {
+        $this->brandsbrand = $brandsbrand;
+    }
+
+    /**
+     * @return Categories
+     */
+    public function getCategoriescategory(): ?Categories
+    {
+        return $this->categoriescategory;
+    }
+
+    /**
+     * @param Categories $categoriescategory
+     */
+    public function setCategoriescategory(Categories $categoriescategory)
+    {
+        $this->categoriescategory = $categoriescategory;
+    }
 
 
 }

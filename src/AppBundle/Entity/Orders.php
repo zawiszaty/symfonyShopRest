@@ -48,6 +48,80 @@ class Orders
      */
     private $customerData;
 
+    /**
+     * @var \AppBundle\Entity\userId
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id, referencedColumnName="user_id)
+     * })
+     */
+    private $userId;
+
+    /**
+     * @return string
+     */
+    public function getOrderDescription(): ?string
+    {
+        return $this->orderDescription;
+    }
+
+    /**
+     * @param string $orderDescription
+     */
+    public function setOrderDescription(string $orderDescription)
+    {
+        $this->orderDescription = $orderDescription;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdorders(): int
+    {
+        return $this->idorders;
+    }
+
+    /**
+     * @param int $idorders
+     */
+    public function setIdorders(int $idorders)
+    {
+        $this->idorders = $idorders;
+    }
+
+    /**
+     * @return Products
+     */
+    public function getProductsproducts(): ?Products
+    {
+        return $this->productsproducts;
+    }
+
+    /**
+     * @param Products $productsproducts
+     */
+    public function setProductsproducts(Products $productsproducts)
+    {
+        $this->productsproducts = $productsproducts;
+    }
+
+    /**
+     * @return CustomerData
+     */
+    public function getCustomerData(): ?CustomerData
+    {
+        return $this->customerData;
+    }
+
+    /**
+     * @param CustomerData $customerData
+     */
+    public function setCustomerData(?CustomerData $customerData)
+    {
+        $this->customerData = $customerData;
+    }
+
 
 }
 

@@ -42,6 +42,70 @@ class CustomerData
      */
     private $idcustomerData;
 
+    /**
+     * @return string
+     */
+    public function getStreet(): ?string
+    {
+        return $this->street;
+    }
+
+    /**
+     * @param string $street
+     */
+    public function setStreet(string $street)
+    {
+        $this->street = $street;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHouseNumber(): ?string
+    {
+        return $this->houseNumber;
+    }
+
+    /**
+     * @param string $houseNumber
+     */
+    public function setHouseNumber(string $houseNumber)
+    {
+        $this->houseNumber = $houseNumber;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param string $city
+     */
+    public function setCity(string $city)
+    {
+        $this->city = $city;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdcustomerData(): int
+    {
+        return $this->idcustomerData;
+    }
+
+    /**
+     * @param int $idcustomerData
+     */
+    public function setIdcustomerData(int $idcustomerData)
+    {
+        $this->idcustomerData = $idcustomerData;
+    }
+
 
 
 }

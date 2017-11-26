@@ -32,6 +32,10 @@ services:
             resource: '../../src/AppBundle/Provider'
             public: true
             arguments: [ '@doctrine.orm.entity_manager']
+    AppBundle\Manager\:
+            resource: '../../src/AppBundle/Manager'
+            public: true
+            arguments: [ '@doctrine.orm.entity_manager']
 
 
 
