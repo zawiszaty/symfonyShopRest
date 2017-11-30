@@ -52,7 +52,7 @@ class CategoriesController extends FOSRestController
     /**
      * This method added category
      *
-     * @Rest\Put("/api/add/category")
+     * @Rest\Put("/api/panel/admin/add/category")
      *
      * @param Request $request request object
      *
@@ -77,7 +77,7 @@ class CategoriesController extends FOSRestController
     /**
      * This method edit category
      *
-     * @Rest\Put("/api/{id}/edit/category")
+     * @Rest\Put("/api/panel/admin/{id}/edit/category")
      *
      * @param Request $request request object
      * @param int $id brand id
@@ -105,7 +105,7 @@ class CategoriesController extends FOSRestController
     /**
      * This method del category
      *
-     * @Rest\Delete("/api/{id}/del/category")
+     * @Rest\Delete("/api/panel/admin/{id}/del/category")
      *
      * @param int $id category id
      *

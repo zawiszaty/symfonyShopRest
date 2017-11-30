@@ -48,7 +48,7 @@ class OrdersController extends FOSRestController
     /**
      * This method add new order
      *
-     * @Rest\Put("/api/add/order")
+     * @Rest\Put("/api/panel/user/add/order")
      *
      * @param Request $request request object
      *
@@ -72,7 +72,7 @@ class OrdersController extends FOSRestController
     /**
      * This method edit order
      *
-     * @Rest\Put("/api/{id}/edit/order")
+     * @Rest\Put("/api/panel/user/{id}/edit/order")
      *
      * @param Request $request request object
      * @param int $id orders id
@@ -98,7 +98,7 @@ class OrdersController extends FOSRestController
     /**
      * This method del order
      *
-     * @Rest\Put("/api/{id}/del/order")
+     * @Rest\Put("/api/panel/user/{id}/del/order")
      *
      * @param Request $request request object
      * @param int $id orders id

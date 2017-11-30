@@ -49,7 +49,7 @@ class ProductsController extends FOSRestController
     /**
      * This method added new product
      *
-     * @Rest\Put("/api/add/product")
+     * @Rest\Put("/api/panel/admin/add/product")
      *
      * @param Request $request request object
      *
@@ -73,7 +73,7 @@ class ProductsController extends FOSRestController
     /**
      * This method edit product
      *
-     * @Rest\Put("/api/{id}/edit/product")
+     * @Rest\Put("/api/panel/admin/{id}/edit/product")
      *
      * @param Request $request request object
      * @param int $id product id
@@ -99,7 +99,7 @@ class ProductsController extends FOSRestController
     /**
      * This method deleted product
      *
-     * @Rest\Put("/api/{id}/del/product")
+     * @Rest\Put("/api/panel/admin/{id}/del/product")
      *
      * @param int $id product id
      *

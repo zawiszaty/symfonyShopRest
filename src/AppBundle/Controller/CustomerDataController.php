@@ -55,7 +55,7 @@ class CustomerDataController extends FOSRestController
     /**
      * This method add customerData
      *
-     * @Rest\Put("/api/add/customerData")
+     * @Rest\Put("/api/panel/user/add/customerData")
      *
      * @param  Request $request request object
      *
@@ -79,7 +79,7 @@ class CustomerDataController extends FOSRestController
     /**
      * This method edit customerData
      *
-     * @Rest\Put("/api/{id}/edit/customerData")
+     * @Rest\Put("/api/panel/user/{id}/edit/customerData")
      *
      * @param Request $request request object
      * @param int $id id
@@ -105,7 +105,7 @@ class CustomerDataController extends FOSRestController
     /**
      * This method del customerData
      *
-     * @Rest\Delete("/api/{id}/del/customerData")
+     * @Rest\Delete("/api/panel/user/{id}/del/customerData")
      *
      * @param int $id id
      *

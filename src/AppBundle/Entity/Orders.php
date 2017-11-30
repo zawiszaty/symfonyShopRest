@@ -48,15 +48,7 @@ class Orders
      */
     private $customerData;
 
-    /**
-     * @var \AppBundle\Entity\userId
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id, referencedColumnName="user_id)
-     * })
-     */
-    private $userId;
+
 
     /**
      * @return string

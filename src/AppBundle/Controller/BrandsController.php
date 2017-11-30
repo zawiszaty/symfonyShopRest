@@ -58,7 +58,7 @@ class BrandsController extends FOSRestController
     /**
      * This method added new brand
      *
-     * @Rest\Put("/api/add/brand")
+     * @Rest\Put("/api/panel/admin/add/brand")
      *
      * @return Response
      */
@@ -81,7 +81,7 @@ class BrandsController extends FOSRestController
     /**
      * This method edit brand
      *
-     * @Rest\Put("/api/{id}/edit/brand")
+     * @Rest\Put("/api/panel/admin/{id}/edit/brand")
      *
      * @param Request $request request object
      * @param int $id brand id
@@ -109,7 +109,7 @@ class BrandsController extends FOSRestController
      *
      * This method deleted  brand
      *
-     * @Rest\Put("/api/{id}/del/brand")
+     * @Rest\Put("/api/panel/admin/{id}/del/brand")
      *
      * @param Request $request request object
      * @param int $id brand id
@@ -120,7 +120,7 @@ class BrandsController extends FOSRestController
     {
         $brandsManager = $this->get('AppBundle\Manager\BrandsManager');
         $brandsManager->delete($id);
-        $view = $this->view('success', 500);
+        $view = $this->view('success', 200);
         return $this->handleView($view);
     }
 
