@@ -47,7 +47,7 @@ class Categories
     /**
      * @return int
      */
-    public function getIdcategory(): int
+    public function getIdcategory(): ?int
     {
         return $this->idcategory;
     }

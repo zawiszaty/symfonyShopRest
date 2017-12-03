@@ -12,7 +12,7 @@ class CategoriesManager extends Manager
     public function add(array $params): bool
     {
         $category = new Categories();
-        $category->setCategoryName($params['categoryName']);
+        $category->setCategoryName($params['category_name']);
         $this->doctrine->persist($category);
         $this->doctrine->flush();
         return true;
@@ -20,7 +20,7 @@ class CategoriesManager extends Manager
 
     public function edit(Categories $old, array $params): bool
     {
-        $old->setCategoryName($params['categoryName']);
+        $old->setCategoryName($params['category_name']);
         $this->doctrine->flush();
         return true;
     }

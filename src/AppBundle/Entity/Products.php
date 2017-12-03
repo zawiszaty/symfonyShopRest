@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Products
@@ -41,7 +42,7 @@ class Products
     private $productAmount;
 
     /**
-     * @var string
+     * @var File
      *
      * @ORM\Column(name="miniature", type="string", length=255, nullable=true)
      */
@@ -140,21 +141,6 @@ class Products
         $this->productAmount = $productAmount;
     }
 
-    /**
-     * @return string
-     */
-    public function getMiniature(): ?string
-    {
-        return $this->miniature;
-    }
-
-    /**
-     * @param string $miniature
-     */
-    public function setMiniature(string $miniature)
-    {
-        $this->miniature = $miniature;
-    }
 
     /**
      * @return int
@@ -204,6 +190,17 @@ class Products
         $this->categoriescategory = $categoriescategory;
     }
 
+    /**
+     */
+    public function getMiniature()
+    {
+        return $this->miniature;
+    }
+
+    public function setMiniature($miniature)
+    {
+        $this->miniature = $miniature;
+    }
 
 }
 

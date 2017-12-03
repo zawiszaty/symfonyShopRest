@@ -10,14 +10,14 @@ use AppBundle\Entity\Products;
 
 class ProductManager extends Manager
 {
-    public function add(array $params): bool
+    public function add(array $params, $nameMiniature): bool
     {
         $product = new Products();
-        $product->setProductName($params['productName']);
-        $product->setProductDescription($params['productDescription']);
-        $product->setProductSize($params['productSize']);
-        $product->setProductAmount($params['productAmount']);
-        $product->setMiniature($params['miniature']);
+        $product->setProductName($params['product_name']);
+        $product->setProductDescription($params['product_description']);
+        $product->setProductSize($params['product_size']);
+        $product->setProductAmount($params['product_amount']);
+        $product->setMiniature($nameMiniature);
         $brand = $this->doctrine->getRepository(Brands::class)->find($params['brandsbrand']);
         $product->setBrandsbrand($brand);
         $category = $this->doctrine->getRepository(Categories::class)->find($params['categoriescategory']);
@@ -30,10 +30,10 @@ class ProductManager extends Manager
     public function edit(Products $old, array $params): bool
     {
 
-        $old->setProductName($params['productName']);
-        $old->setProductDescription($params['productDescription']);
-        $old->setProductSize($params['productSize']);
-        $old->setProductAmount($params['productAmount']);
+        $old->setProductName($params['product_name']);
+        $old->setProductDescription($params['product_description']);
+        $old->setProductSize($params['product_size']);
+        $old->setProductAmount($params['product_amount']);
         $old->setMiniature($params['miniature']);
         $brand = $this->doctrine->getRepository(Brands::class)->find($params['brandsbrand']);
         $old->setBrandsbrand($brand);

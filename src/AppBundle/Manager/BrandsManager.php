@@ -13,7 +13,7 @@ class BrandsManager extends Manager
     public function add(array $params): bool
     {
         $brand = new Brands();
-        $brand->setBrandName($params['brandName']);
+        $brand->setBrandName($params['brand_name']);
         $this->doctrine->persist($brand);
         $this->doctrine->flush();
         return true;
@@ -21,7 +21,7 @@ class BrandsManager extends Manager
 
     public function edit(Brands $old, array $params): bool
     {
-        $old->setBrandName($params['brandName']);
+        $old->setBrandName($params['brand_name']);
         $this->doctrine->flush();
         return true;
     }

@@ -12,7 +12,8 @@ class EditBrandType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('brandName');
+            ->add('idbrand')
+            ->add('brand_name');
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -109,7 +109,7 @@ class BrandsController extends FOSRestController
      *
      * This method deleted  brand
      *
-     * @Rest\Put("/api/panel/admin/{id}/del/brand")
+     * @Rest\Delete("/api/panel/admin/{id}/del/brand")
      *
      * @param Request $request request object
      * @param int $id brand id

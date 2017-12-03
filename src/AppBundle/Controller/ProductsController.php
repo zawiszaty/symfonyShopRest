@@ -4,7 +4,9 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\Products;
 use AppBundle\Form\AddProductType;
+use AppBundle\Form\EditProductType;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -61,8 +63,13 @@ class ProductsController extends FOSRestController
         $form->submit($request->request->all());
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $str = "data:image/png;base64,";
+            $data = str_replace($str, "", $request->get('miniature'));
+            $data = base64_decode($data);
+            $name = md5(uniqid(rand(), true)) . '.png';
+            file_put_contents('uploads/' . $name, $data);
             $productManager = $this->get('AppBundle\Manager\ProductManager');
-            $productManager->add($request->request->all());
+            $productManager->add($request->request->all(),$name);
             $view = $this->view('succes', 200);
             return $this->handleView($view);
         }
@@ -82,7 +89,7 @@ class ProductsController extends FOSRestController
      */
     public function editProduct(Request $request, int $id): Response
     {
-        $form = $this->createForm(AddProductType::class);
+        $form = $this->createForm(EditProductType::class);
         $form->submit($request->request->all());
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -99,7 +106,7 @@ class ProductsController extends FOSRestController
     /**
      * This method deleted product
      *
-     * @Rest\Put("/api/panel/admin/{id}/del/product")
+     * @Rest\Delete("/api/panel/admin/{id}/del/product")
      *
      * @param int $id product id
      *

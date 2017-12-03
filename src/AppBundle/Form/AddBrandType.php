@@ -12,7 +12,7 @@ class AddBrandType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('brandName');
+            ->add('brand_name');
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -12,7 +12,7 @@ class AddCategoryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('categoryName');
+            ->add('category_name');
     }
 
     public function configureOptions(OptionsResolver $resolver)
