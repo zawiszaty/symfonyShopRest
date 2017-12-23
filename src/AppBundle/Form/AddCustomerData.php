@@ -14,7 +14,8 @@ class AddCustomerData extends AbstractType
         $builder
             ->add('street')
             ->add('houseNumber')
-            ->add('city');
+            ->add('city')
+            ->add('user');
     }
 
     public function configureOptions(OptionsResolver $resolver)

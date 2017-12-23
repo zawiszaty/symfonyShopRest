@@ -22,4 +22,9 @@ class CustomerDataProvider extends Provider implements ProviderStrategy
         return $customerData;
     }
 
+    public function getAllUsers(int $id): array
+    {
+        $customerData = $this->_doctrine->getRepository(CustomerData::class)->findBy(['user' => $id]);
+        return $customerData;
+    }
 }

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Orders
  *
- * @ORM\Table(name="orders", indexes={@ORM\Index(name="fk_orders_products1_idx", columns={"products_idproducts"}), @ORM\Index(name="customer_data_id_idx", columns={"customer_data_id"})})
+ * @ORM\Table(name="orders", indexes={@ORM\Index(name="customer_data_id_idx", columns={"customer_data_id"})})
  * @ORM\Entity
  */
 class Orders
@@ -20,6 +20,12 @@ class Orders
     private $orderDescription;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="order_status", type="string", length=255, nullable=true, options={"default" : "submitted"}))
+     */
+    private $status = 'submitted';
+    /**
      * @var integer
      *
      * @ORM\Column(name="idorders", type="integer")
@@ -27,17 +33,12 @@ class Orders
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $idorders;
-
     /**
-     * @var \AppBundle\Entity\Products
+     * @var string
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Products")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="products_idproducts", referencedColumnName="idproducts")
-     * })
+     * @ORM\Column(name="products", type="string", length=255), nullable=false)
      */
-    private $productsproducts;
-
+    private $products;
     /**
      * @var \AppBundle\Entity\CustomerData
      *
@@ -47,8 +48,133 @@ class Orders
      * })
      */
     private $customerData;
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="orders")
+     * @ORM\JoinColumn(name="user_id", nullable=false)
+     */
+    private $user;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="orders_prize", type="integer", length=255), nullable=false)
+     */
+    private $ordersPrize;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="order_size", type="string", length=255))
+     */
+    private $orderSize;
+
+    /**
+     * @var \AppBundle\Entity\DeliveryMethod
+     *
+     * @ORM\Column(name="delivery_method", type="string", length=255))
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\DeliveryMethod")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="delivery_method_id", referencedColumnName="id")
+     * })
+     */
+    private $deliveryMethod;
+
+    /**
+     * @return DeliveryMethod
+     */
+    public function getDeliveryMethod(): DeliveryMethod
+    {
+        return $this->deliveryMethod;
+    }
+
+    /**
+     * @param DeliveryMethod $deliveryMethod
+     */
+    public function setDeliveryMethod(DeliveryMethod $deliveryMethod)
+    {
+        $this->deliveryMethod = $deliveryMethod;
+    }
 
 
+    /**
+     * @return string
+     */
+    public function getOrderSize(): string
+    {
+        return $this->orderSize;
+    }
+
+    /**
+     * @param string $orderSize
+     */
+    public function setOrderSize(string $orderSize)
+    {
+        $this->orderSize = $orderSize;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrdersPrize(): string
+    {
+        return $this->ordersPrize;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     */
+    public function setStatus(string $status)
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProducts(): string
+    {
+        return $this->products;
+    }
+
+    /**
+     * @param string $products
+     */
+    public function setProducts(string $products)
+    {
+        $this->products = $products;
+    }
+
+    /**
+     * @param string $ordersPrize
+     */
+    public function setOrdersPrize(string $ordersPrize)
+    {
+        $this->ordersPrize = $ordersPrize;
+    }
 
     /**
      * @return string
@@ -82,21 +208,6 @@ class Orders
         $this->idorders = $idorders;
     }
 
-    /**
-     * @return Products
-     */
-    public function getProductsproducts(): ?Products
-    {
-        return $this->productsproducts;
-    }
-
-    /**
-     * @param Products $productsproducts
-     */
-    public function setProductsproducts(Products $productsproducts)
-    {
-        $this->productsproducts = $productsproducts;
-    }
 
     /**
      * @return CustomerData

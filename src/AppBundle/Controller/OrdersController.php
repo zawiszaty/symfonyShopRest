@@ -4,6 +4,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Form\AddOrderType;
+use AppBundle\Form\EditOrderType;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,6 +47,23 @@ class OrdersController extends FOSRestController
     }
 
     /**
+     * This method return only one order
+     *
+     * @Rest\Get("/api/panel/user/{id}/get/orders")
+     *
+     * @return Response
+     */
+    public function getAllUserOrders(int $id): Response
+    {
+        $ordersProvider = $this->get('AppBundle\Provider\OrdersProvider');
+        $orders = $ordersProvider->getAllUsers($id);
+        $serializer = $this->get('jms_serializer');
+        $serializer->serialize($orders, 'json');
+        $view = $this->view($orders, 200);
+        return $this->handleView($view);
+    }
+
+    /**
      * This method add new order
      *
      * @Rest\Put("/api/panel/user/add/order")
@@ -72,7 +90,7 @@ class OrdersController extends FOSRestController
     /**
      * This method edit order
      *
-     * @Rest\Put("/api/panel/user/{id}/edit/order")
+     * @Rest\Put("/api/panel/admin/{id}/edit/order")
      *
      * @param Request $request request object
      * @param int $id orders id
@@ -81,7 +99,7 @@ class OrdersController extends FOSRestController
      */
     public function editOrder(Request $request, int $id): Response
     {
-        $form = $this->createForm(AddOrderType::class);
+        $form = $this->createForm(EditOrderType::class);
         $form->submit($request->request->all());
 
         if ($form->isSubmitted() && $form->isValid()) {

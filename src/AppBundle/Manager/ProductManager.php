@@ -50,4 +50,6 @@ class ProductManager extends Manager
         $this->doctrine->flush();
         return true;
     }
+
+
 }

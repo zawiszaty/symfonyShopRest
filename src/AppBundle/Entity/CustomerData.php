@@ -20,6 +20,22 @@ class CustomerData
     private $street;
 
     /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
+    /**
      * @var string
      *
      * @ORM\Column(name="house_number", type="string", length=255, nullable=false)
@@ -41,6 +57,12 @@ class CustomerData
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $idcustomerData;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="customerdata")
+     * @ORM\JoinColumn(name="user_id", nullable=false)
+     */
+    protected $user;
 
     /**
      * @return string

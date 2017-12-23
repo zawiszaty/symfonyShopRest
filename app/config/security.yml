@@ -32,4 +32,4 @@ security:
     access_control:
         - { path: ^/api/panel/^,       roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/panel/admin,       roles: ROLE_ADMIN  }
-        - { path: ^/api/panel/user,       roles: USER_ROLES }
+        - { path: ^/api/panel/user,       roles: ROLE_USER }

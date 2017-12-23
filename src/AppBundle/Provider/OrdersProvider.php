@@ -28,4 +28,10 @@ class OrdersProvider extends Provider implements ProviderStrategy
         return $order;
     }
 
+    public function getAllUsers(int $id): array
+    {
+        $orders = $this->_doctrine->getRepository(Orders::class)->findBy(["user" => $id]);
+        return $orders;
+    }
+
 }

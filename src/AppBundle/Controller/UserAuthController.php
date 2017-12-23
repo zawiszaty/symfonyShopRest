@@ -19,10 +19,20 @@ class UserAuthController extends FOSRestController
      */
     public function auth(): Response
     {
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+
         if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-            $view = $this->view('ROLE_ADMIN', 200);
+            $userData = [
+                "role" => "ROLE_ADMIN",
+                "userId" =>  $user->getId()
+            ];
+            $view = $this->view($userData, 200);
         } else if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
-            $view = $this->view('ROLE_USER', 200);
+            $userData = [
+                "role" => "ROLE_USER",
+                "userId" =>  $user->getId()
+            ];
+            $view = $this->view($userData, 200);
         }
         return $this->handleView($view);
     }

@@ -38,7 +38,7 @@ class CustomerDataController extends FOSRestController
     /**
      * This class return only one customer data
      *
-     * @Rest\Get("/api/get/{id}/customerData")
+     * @Rest\Get("/api/panel/get/user/{id}/customerData")
      *
      * @return Response
      */
@@ -46,6 +46,23 @@ class CustomerDataController extends FOSRestController
     {
         $customerDataProvider = $this->get('AppBundle\Provider\CustomerDataProvider');
         $customerData = $customerDataProvider->getSingle($id);
+        $serializer = $this->get('jms_serializer');
+        $serializer->serialize($customerData, 'json');
+        $view = $this->view($customerData, 200);
+        return $this->handleView($view);
+    }
+
+    /**
+     * This class return only one customer data
+     *
+     * @Rest\Get("/api/panel/user/get/{id}/customerData")
+     *
+     * @return Response
+     */
+    public function getAllUserCustomerData(int $id): Response
+    {
+        $customerDataProvider = $this->get('AppBundle\Provider\CustomerDataProvider');
+        $customerData = $customerDataProvider->getAllUsers($id);
         $serializer = $this->get('jms_serializer');
         $serializer->serialize($customerData, 'json');
         $view = $this->view($customerData, 200);

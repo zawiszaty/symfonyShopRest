@@ -15,14 +15,17 @@ class AddOrderType extends AbstractType
         $builder
             ->add('customerData')
             ->add('orderDescription')
-            ->add('productsproducts');
+            ->add('user')
+            ->add('productsproducts')
+            ->add('orderPrize')
+            ->add('deliveryMethod')
+            ->add('orderSize');
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'csrf_protection' => false,
-            'data_class' => Orders::class,
         ));
     }
 }

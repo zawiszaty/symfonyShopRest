@@ -69,7 +69,7 @@ class ProductsController extends FOSRestController
             $name = md5(uniqid(rand(), true)) . '.png';
             file_put_contents('uploads/' . $name, $data);
             $productManager = $this->get('AppBundle\Manager\ProductManager');
-            $productManager->add($request->request->all(),$name);
+            $productManager->add($request->request->all(), $name);
             $view = $this->view('succes', 200);
             return $this->handleView($view);
         }
