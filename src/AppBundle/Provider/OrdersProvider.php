@@ -16,7 +16,8 @@ class OrdersProvider extends Provider implements ProviderStrategy
 {
     public function getAll(): array
     {
-        $orders = $this->_doctrine->getRepository(Orders::class)->findAll();
+        $orders = $this->_doctrine->getRepository(Orders::class)->createQueryBuilder('p')
+        ->where('p.status = :submitted')->setParameter('submitted','submitted')->orWhere('p.status = :send')->setParameter('send','send')->getQuery()->getResult();
         return $orders;
     }
 

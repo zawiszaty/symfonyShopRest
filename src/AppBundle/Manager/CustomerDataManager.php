@@ -5,7 +5,6 @@ namespace AppBundle\Manager;
 
 
 use AppBundle\Entity\CustomerData;
-use AppBundle\Entity\Orders;
 use AppBundle\Entity\User;
 
 class CustomerDataManager extends Manager
@@ -35,11 +34,7 @@ class CustomerDataManager extends Manager
     public function del(int $id): bool
     {
         $deleteCustomerData = $this->doctrine->getRepository(CustomerData::class)->find($id);
-        $orders = $this->doctrine->getRepository(Orders::class)->findBy(['customerData' => $id]);
-        foreach ($orders as $item) {
-            $this->doctrine->remove($item);
-        }
-        $this->doctrine->remove($deleteCustomerData);
+        $deleteCustomerData->setArchived(1);
         $this->doctrine->flush();
         return true;
     }

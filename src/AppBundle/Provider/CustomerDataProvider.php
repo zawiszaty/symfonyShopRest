@@ -24,7 +24,10 @@ class CustomerDataProvider extends Provider implements ProviderStrategy
 
     public function getAllUsers(int $id): array
     {
-        $customerData = $this->_doctrine->getRepository(CustomerData::class)->findBy(['user' => $id]);
+        $customerData = $this->_doctrine->getRepository(CustomerData::class)->createQueryBuilder('p')
+            ->where('p.archived != 1')->andWhere('p.user = :id')->setParameter('id', $id)->getQuery()->getResult();
+//            ->findBy(['user' => $id]);
+
         return $customerData;
     }
 }

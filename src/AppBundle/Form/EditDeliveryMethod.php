@@ -3,27 +3,25 @@
 namespace AppBundle\Form;
 
 
-use AppBundle\Entity\Orders;
+use AppBundle\Entity\DeliveryMethod;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class EditOrderType extends AbstractType
+class EditDeliveryMethod extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('status')
-            ->add('order_description')
-            ->add('products');
-
+            ->add('methods')
+            ->add('methods_prize');
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'csrf_protection' => false,
-            'data_class' => Orders::class,
+            'data_class' => DeliveryMethod::class,
             'allow_extra_fields' => true,
         ));
     }

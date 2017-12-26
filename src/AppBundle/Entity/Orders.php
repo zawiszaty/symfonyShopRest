@@ -17,8 +17,7 @@ class Orders
      *
      * @ORM\Column(name="order_description", type="string", length=255, nullable=true)
      */
-    private $orderDescription;
-
+    private $order_description;
     /**
      * @var string
      *
@@ -53,14 +52,19 @@ class Orders
      * @ORM\JoinColumn(name="user_id", nullable=false)
      */
     private $user;
-
+    /**
+     * @var DeliveryMethod
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\DeliveryMethod", inversedBy="orders")
+     * @ORM\JoinColumn(name="delivery_method", nullable=false)
+     */
+    private $deliveryMethod;
     /**
      * @var string
      *
      * @ORM\Column(name="orders_prize", type="integer", length=255), nullable=false)
      */
     private $ordersPrize;
-
     /**
      * @var string
      *
@@ -69,32 +73,36 @@ class Orders
     private $orderSize;
 
     /**
-     * @var \AppBundle\Entity\DeliveryMethod
-     *
-     * @ORM\Column(name="delivery_method", type="string", length=255))
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\DeliveryMethod")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="delivery_method_id", referencedColumnName="id")
-     * })
+     * @return string
      */
-    private $deliveryMethod;
+    public function getOrderDescription(): ?string
+    {
+        return $this->order_description;
+    }
 
     /**
-     * @return DeliveryMethod
+     * @param string $order_description
      */
-    public function getDeliveryMethod(): DeliveryMethod
+    public function setOrderDescription(string $order_description)
+    {
+        $this->order_description = $order_description;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeliveryMethod()
     {
         return $this->deliveryMethod;
     }
 
     /**
-     * @param DeliveryMethod $deliveryMethod
+     * @param mixed $deliveryMethod
      */
-    public function setDeliveryMethod(DeliveryMethod $deliveryMethod)
+    public function setDeliveryMethod($deliveryMethod)
     {
         $this->deliveryMethod = $deliveryMethod;
     }
-
 
     /**
      * @return string
@@ -118,6 +126,14 @@ class Orders
     public function getOrdersPrize(): string
     {
         return $this->ordersPrize;
+    }
+
+    /**
+     * @param string $ordersPrize
+     */
+    public function setOrdersPrize(string $ordersPrize)
+    {
+        $this->ordersPrize = $ordersPrize;
     }
 
     /**
@@ -155,7 +171,7 @@ class Orders
     /**
      * @return string
      */
-    public function getProducts(): string
+    public function getProducts(): ?string
     {
         return $this->products;
     }
@@ -166,30 +182,6 @@ class Orders
     public function setProducts(string $products)
     {
         $this->products = $products;
-    }
-
-    /**
-     * @param string $ordersPrize
-     */
-    public function setOrdersPrize(string $ordersPrize)
-    {
-        $this->ordersPrize = $ordersPrize;
-    }
-
-    /**
-     * @return string
-     */
-    public function getOrderDescription(): ?string
-    {
-        return $this->orderDescription;
-    }
-
-    /**
-     * @param string $orderDescription
-     */
-    public function setOrderDescription(string $orderDescription)
-    {
-        $this->orderDescription = $orderDescription;
     }
 
     /**

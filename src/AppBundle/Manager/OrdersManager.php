@@ -5,6 +5,7 @@ namespace AppBundle\Manager;
 
 
 use AppBundle\Entity\CustomerData;
+use AppBundle\Entity\DeliveryMethod;
 use AppBundle\Entity\Orders;
 use AppBundle\Entity\User;
 
@@ -21,7 +22,8 @@ class OrdersManager extends Manager
         $order->setUser($user);
         $order->setOrdersPrize($params['orderPrize']);
         $order->setOrderSize($params['orderSize']);
-        $order->setDeliveryMethod($params['deliveryMethod']);
+        $deliveryMethod = $this->doctrine->getRepository(DeliveryMethod::class)->find($params['deliveryMethod']);
+        $order->setDeliveryMethod($deliveryMethod);
         $this->doctrine->persist($order);
         $this->doctrine->flush();
         return true;
@@ -29,10 +31,9 @@ class OrdersManager extends Manager
 
     public function edit(Orders $old, array $params): bool
     {
-        $customerData = $this->doctrine->getRepository(CustomerData::class)->find($params['customerData']);
-        $old->setCustomerData($customerData);
-        $old->setOrderDescription($params['orderDescription']);
-        $old->setProducts($params['productsproducts']);
+        $old->setOrderDescription($params['order_description']);
+        $old->setProducts($params['products']);
+        $old->setStatus($params['status']);
         $this->doctrine->flush();
         return true;
     }
