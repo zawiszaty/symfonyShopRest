@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: zawisza
- * Date: 21.11.2017
- * Time: 18:52
- */
 
 namespace AppBundle\Controller;
 
@@ -17,10 +11,14 @@ use FOS\RestBundle\Controller\Annotations\Get;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class BrandsController
+ * @package AppBundle\Controller
+ */
 class BrandsController extends FOSRestController
 {
     /**
-     * This class return all brands
+     * This method return all brands
      *
      * @Get("/api/get/all/brands")
      *
@@ -28,7 +26,7 @@ class BrandsController extends FOSRestController
      */
     public function getAllBrands(): Response
     {
-        $brandsProvider = $this->get('AppBundle\Provider\BrandsProvider');
+        $brandsProvider = $this->get('appbundle\provider\brandsprovider');
         $brands = $brandsProvider->getAll();
         $serializer = $this->get('jms_serializer');
         $serializer->serialize($brands, 'json');
@@ -37,7 +35,7 @@ class BrandsController extends FOSRestController
     }
 
     /**
-     * GET Route annotation.
+     * This method return single brand object
      *
      * @param int $id
      *
@@ -47,7 +45,7 @@ class BrandsController extends FOSRestController
      */
     public function getSingleBrands(int $id): Response
     {
-        $brandsProvider = $this->get('AppBundle\Provider\BrandsProvider');
+        $brandsProvider = $this->get('appbundle\provider\brandsprovider');
         $brand = $brandsProvider->getSingle($id);
         $serializer = $this->get('jms_serializer');
         $serializer->serialize($brand, 'json');
@@ -60,6 +58,8 @@ class BrandsController extends FOSRestController
      *
      * @Rest\Put("/api/panel/admin/add/brand")
      *
+     * @param Request $request request object
+     *
      * @return Response
      */
     public function addBrands(Request $request): Response
@@ -68,7 +68,7 @@ class BrandsController extends FOSRestController
         $form->submit($request->request->all());
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $brandsManager = $this->get('AppBundle\Manager\BrandsManager');
+            $brandsManager = $this->get('appbundle\manager\brandsmanager');
             $brandsManager->add($request->request->all());
             $view = $this->view('succes', 200);
             return $this->handleView($view);
@@ -94,8 +94,8 @@ class BrandsController extends FOSRestController
         $form->submit($request->request->all());
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $brandsManager = $this->get('AppBundle\Manager\BrandsManager');
-            $brandsProvider = $this->get('AppBundle\Provider\BrandsProvider');
+            $brandsManager = $this->get('appbundle\manager\brandsmanager');
+            $brandsProvider = $this->get('appbundle\provider\brandsprovider');
             $brandsManager->edit($brandsProvider->getSingle($id), $request->request->all());
             $view = $this->view('succes', 200);
             return $this->handleView($view);
@@ -107,7 +107,7 @@ class BrandsController extends FOSRestController
 
     /**
      *
-     * This method deleted  brand
+     * This method deleted brand
      *
      * @Rest\Delete("/api/panel/admin/{id}/del/brand")
      *
@@ -118,8 +118,9 @@ class BrandsController extends FOSRestController
      */
     public function deleteBrand(Request $request, int $id): Response
     {
-        $brandsManager = $this->get('AppBundle\Manager\BrandsManager');
+        $brandsManager = $this->get('appbundle\manager\brandsmanager');
         $brandsManager->delete($id);
+
         $view = $this->view('success', 200);
         return $this->handleView($view);
     }

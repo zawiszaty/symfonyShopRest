@@ -12,10 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class DeliveryMethod
 {
-    /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Orders", mappedBy="deliveryMethod", cascade={"remove"})
-     */
-    protected $orders;
+
     /**
      * @var integer
      *
@@ -42,22 +39,6 @@ class DeliveryMethod
      * @ORM\Column(name="archived", type="integer", length=255), nullable=false)
      */
     private $archived = 0;
-
-    /**
-     * @return mixed
-     */
-    public function getOrders()
-    {
-        return $this->orders;
-    }
-
-    /**
-     * @param mixed $orders
-     */
-    public function setOrders($orders)
-    {
-        $this->orders = $orders;
-    }
 
     /**
      * @return int

@@ -9,8 +9,19 @@ use AppBundle\Entity\DeliveryMethod;
 use AppBundle\Entity\Orders;
 use AppBundle\Entity\User;
 
+/**
+ * Class OrdersManager
+ * @package AppBundle\Manager
+ */
 class OrdersManager extends Manager
 {
+    use ManagerStrategy;
+
+    /**
+     *
+     * @param array $params
+     * @return bool
+     */
     public function add(array $params): bool
     {
         $order = new Orders();
@@ -24,20 +35,34 @@ class OrdersManager extends Manager
         $order->setOrderSize($params['orderSize']);
         $deliveryMethod = $this->doctrine->getRepository(DeliveryMethod::class)->find($params['deliveryMethod']);
         $order->setDeliveryMethod($deliveryMethod);
+
         $this->doctrine->persist($order);
         $this->doctrine->flush();
+
         return true;
     }
 
+    /**
+     *
+     * @param Orders $old
+     * @param array $params
+     * @return bool
+     */
     public function edit(Orders $old, array $params): bool
     {
         $old->setOrderDescription($params['order_description']);
         $old->setProducts($params['products']);
         $old->setStatus($params['status']);
+
         $this->doctrine->flush();
+
         return true;
     }
 
+    /**
+     * @param int $id
+     * @return bool
+     */
     public function del(int $id): bool
     {
         $delOrders = $this->doctrine->getRepository(Orders::class)->find($id);

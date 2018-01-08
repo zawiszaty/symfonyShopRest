@@ -55,8 +55,8 @@ class Orders
     /**
      * @var DeliveryMethod
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\DeliveryMethod", inversedBy="orders")
-     * @ORM\JoinColumn(name="delivery_method", nullable=false)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\DeliveryMethod")
+     * @ORM\JoinColumn(name="delivery_method", referencedColumnName="id")
      */
     private $deliveryMethod;
     /**

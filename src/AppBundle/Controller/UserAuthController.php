@@ -8,10 +8,15 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class UserAuthController
+ *
+ * @package AppBundle\Controller
+ */
 class UserAuthController extends FOSRestController
 {
     /**
-     * This method added new brand
+     * Auth method
      *
      * @Rest\Post("/api/panel/auth")
      *
@@ -22,18 +27,24 @@ class UserAuthController extends FOSRestController
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
 
         if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+
             $userData = [
                 "role" => "ROLE_ADMIN",
-                "userId" =>  $user->getId()
+                "userId" => $user->getId()
             ];
+
             $view = $this->view($userData, 200);
+
         } else if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+
             $userData = [
                 "role" => "ROLE_USER",
-                "userId" =>  $user->getId()
+                "userId" => $user->getId()
             ];
+
             $view = $this->view($userData, 200);
         }
+
         return $this->handleView($view);
     }
 }

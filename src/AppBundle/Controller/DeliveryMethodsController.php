@@ -10,10 +10,15 @@ use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class DeliveryMethodsController
+ *
+ * @package AppBundle\Controller
+ */
 class DeliveryMethodsController extends FOSRestController
 {
     /**
-     * This class return all delivery methods
+     * This method return all delivery methods
      *
      * @Rest\Get("/api/get/all/deliveryMethod")
      *
@@ -21,10 +26,12 @@ class DeliveryMethodsController extends FOSRestController
      */
     public function getAllDeliveryMethods(): Response
     {
-        $deliveryMethodsProvider = $this->get('AppBundle\Provider\DeliveryMethodsProvider');
+        $deliveryMethodsProvider = $this->get('appbundle\provider\deliverymethodsprovider');
         $customerData = $deliveryMethodsProvider->getAll();
+
         $serializer = $this->get('jms_serializer');
         $serializer->serialize($customerData, 'json');
+
         $view = $this->view($customerData, 200);
         return $this->handleView($view);
     }
@@ -44,8 +51,9 @@ class DeliveryMethodsController extends FOSRestController
         $form->submit($request->request->all());
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $deliveryMethodsManager = $this->get('AppBundle\Manager\DeliveryMethodManager');
+            $deliveryMethodsManager = $this->get('appbundle\manager\deliverymethodmanager');
             $deliveryMethodsManager->add($request->request->all());
+            
             $view = $this->view('succes', 200);
             return $this->handleView($view);
         }
@@ -58,14 +66,18 @@ class DeliveryMethodsController extends FOSRestController
      *
      * @Rest\Get("/api/get/{id}/deliveryMethod")
      *
+     * @param int $id delivery method id
+     *
      * @return Response
      */
     public function getSingleDeliveryMethod(int $id): Response
     {
-        $deliveryMethodsProvider = $this->get('AppBundle\Provider\DeliveryMethodsProvider');
+        $deliveryMethodsProvider = $this->get('appbundle\provider\deliverymethodsprovider');
         $order = $deliveryMethodsProvider->getSingle($id);
+
         $serializer = $this->get('jms_serializer');
         $serializer->serialize($order, 'json');
+
         $view = $this->view($order, 200);
         return $this->handleView($view);
     }
@@ -80,24 +92,27 @@ class DeliveryMethodsController extends FOSRestController
      *
      * @return Response
      */
-    public function editOrder(Request $request, int $id): Response
+    public function editDeliveryMethod(Request $request, int $id): Response
     {
         $form = $this->createForm(EditDeliveryMethod::class);
         $form->submit($request->request->all());
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $deliveryMethodsManager = $this->get('AppBundle\Manager\DeliveryMethodManager');
-            $deliveryMethodsProvider = $this->get('AppBundle\Provider\DeliveryMethodsProvider');
+            $deliveryMethodsManager = $this->get('appbundle\manager\deliverymethodmanager');
+            $deliveryMethodsProvider = $this->get('appbundle\provider\deliverymethodsprovider');
+
             $deliveryMethodsManager->edit($deliveryMethodsProvider->getSingle($id), $request->request->all());
             $view = $this->view('succes', 200);
+
             return $this->handleView($view);
         }
+
         $view = $this->view($form->getErrors(), 500);
         return $this->handleView($view);
     }
 
     /**
-     * This method del del delivery method
+     * This method delete delivery method
      *
      * @Rest\Delete("/api/panel/user/{id}/del/deliveryMethod")
      *
@@ -107,8 +122,9 @@ class DeliveryMethodsController extends FOSRestController
      */
     public function delDeliveryMethods(int $id): Response
     {
-        $deliveryMethodsProvider = $this->get('AppBundle\Manager\DeliveryMethodManager');
+        $deliveryMethodsProvider = $this->get('appbundle\manager\deliverymethodmanager');
         $deliveryMethodsProvider->del($id);
+
         $view = $this->view('success', 200);
         return $this->handleView($view);
     }

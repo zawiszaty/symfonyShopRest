@@ -4,14 +4,18 @@
 namespace AppBundle\Controller;
 
 
-use AppBundle\Entity\Products;
 use AppBundle\Form\AddProductType;
 use AppBundle\Form\EditProductType;
+use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use FOS\RestBundle\Controller\Annotations as Rest;
 
+/**
+ * Class ProductsController
+ *
+ * @package AppBundle\Controller
+ */
 class ProductsController extends FOSRestController
 {
     /**
@@ -23,10 +27,31 @@ class ProductsController extends FOSRestController
      */
     public function getAllProducts(): Response
     {
-        $productsProvider = $this->get('AppBundle\Provider\ProductsProvider');
+        $productsProvider = $this->get('appbundle\provider\productsprovider');
         $products = $productsProvider->getAll();
+
         $serializer = $this->get('jms_serializer');
         $serializer->serialize($products, 'json');
+
+        $view = $this->view($products, 200);
+        return $this->handleView($view);
+    }
+
+    /**
+     * This method return all products and sort him by prize
+     *
+     * @Rest\Get("/api/get/all/products/{sort}")
+     *
+     * @return Response
+     */
+    public function getAllProductsSortByPrize(string $sort): Response
+    {
+        $productsProvider = $this->get('appbundle\provider\productsprovider');
+        $products = $productsProvider->getAllSortByPrize($sort);
+
+        $serializer = $this->get('jms_serializer');
+        $serializer->serialize($products, 'json');
+
         $view = $this->view($products, 200);
         return $this->handleView($view);
     }
@@ -36,14 +61,18 @@ class ProductsController extends FOSRestController
      *
      * @Rest\Get("/api/get/{id}/product")
      *
+     * @param int $id product id
+     *
      * @return Response
      */
     public function getSingleProduct(int $id): Response
     {
-        $productsProvider = $this->get('AppBundle\Provider\ProductsProvider');
+        $productsProvider = $this->get('appbundle\provider\productsprovider');
         $products = $productsProvider->getSingle($id);
+
         $serializer = $this->get('jms_serializer');
         $serializer->serialize($products, 'json');
+
         $view = $this->view($products, 200);
         return $this->handleView($view);
     }
@@ -64,12 +93,17 @@ class ProductsController extends FOSRestController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $str = "data:image/png;base64,";
+
             $data = str_replace($str, "", $request->get('miniature'));
             $data = base64_decode($data);
+
             $name = md5(uniqid(rand(), true)) . '.png';
+
             file_put_contents('uploads/' . $name, $data);
-            $productManager = $this->get('AppBundle\Manager\ProductManager');
+
+            $productManager = $this->get('appbundle\manager\productmanager');
             $productManager->add($request->request->all(), $name);
+
             $view = $this->view('succes', 200);
             return $this->handleView($view);
         }
@@ -93,9 +127,19 @@ class ProductsController extends FOSRestController
         $form->submit($request->request->all());
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $productManager = $this->get('AppBundle\Manager\ProductManager');
-            $productProvider = $this->get('AppBundle\Provider\ProductsProvider');
-            $productManager->edit($productProvider->getSingle($id), $request->request->all());
+            $str = "data:image/png;base64,";
+
+            $data = str_replace($str, "", $request->get('miniature'));
+            $data = base64_decode($data);
+
+            $name = md5(uniqid(rand(), true)) . '.png';
+
+            file_put_contents('uploads/' . $name, $data);
+
+            $productManager = $this->get('appbundle\manager\productmanager');
+            $productProvider = $this->get('appbundle\provider\productsprovider');
+            $productManager->edit($productProvider->getSingle($id), $request->request->all(), $name);
+
             $view = $this->view('succes', 200);
             return $this->handleView($view);
         }
@@ -114,9 +158,66 @@ class ProductsController extends FOSRestController
      */
     public function delProduct(int $id): Response
     {
-        $productProvider = $this->get('AppBundle\Manager\ProductManager');
+        $productProvider = $this->get('appbundle\manager\productmanager');
         $productProvider->del($id);
+
         $view = $this->view('success', 200);
+        return $this->handleView($view);
+    }
+
+    /**
+     * This method return all products of the brand
+     *
+     * @Rest\Get("/api/all/brands/products/{brand}/{sort}")
+     *
+     * @param int $brand brands id
+     * @param string $sort sort method
+     *
+     * @return Response
+     */
+    public function getAllBrandsProduct(int $brand, string $sort): Response
+    {
+        $productProvider = $this->get('appbundle\provider\productsprovider');
+        $products = $productProvider->getAllBrands($brand, $sort);
+
+        $view = $this->view($products, 200);
+        return $this->handleView($view);
+    }
+
+    /**
+     * This method return all products of the brand
+     *
+     * @Rest\Get("/api/all/categories/products/{categories}/{sort}")
+     *
+     * @param int $categories categories id
+     * @param int $sort sort method
+     *
+     * @return Response
+     */
+    public function getAllCategoriesProduct(int $categories, int $sort): Response
+    {
+        $productProvider = $this->get('appbundle\provider\productsprovider');
+        $products = $productProvider->getAllCategories($categories, $sort);
+
+        $view = $this->view($products, 200);
+        return $this->handleView($view);
+    }
+
+    /**
+     * This method return all products of the orders
+     *
+     * @Rest\Get("/api/all/orders/products/{products}")
+     *
+     * @param string $products string with id of products
+     *
+     * @return Response
+     */
+    public function getAllOrdersProduct(string $products): Response
+    {
+        $productProvider = $this->get('appbundle\provider\productsprovider');
+        $products = $productProvider->getAllOrders($products);
+
+        $view = $this->view($products, 200);
         return $this->handleView($view);
     }
 }

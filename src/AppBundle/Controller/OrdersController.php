@@ -10,10 +10,15 @@ use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class OrdersController
+ *
+ * @package AppBundle\Controller
+ */
 class OrdersController extends FOSRestController
 {
     /**
-     * This class return all orders
+     * This method return all orders
      *
      * @Rest\Get("/api/get/all/orders")
      *
@@ -21,10 +26,12 @@ class OrdersController extends FOSRestController
      */
     public function getAllOrders(): Response
     {
-        $ordersProvider = $this->get('AppBundle\Provider\OrdersProvider');
+        $ordersProvider = $this->get('appbundle\provider\ordersprovider');
         $orders = $ordersProvider->getAll();
+
         $serializer = $this->get('jms_serializer');
         $serializer->serialize($orders, 'json');
+        
         $view = $this->view($orders, 200);
         return $this->handleView($view);
     }
@@ -34,31 +41,39 @@ class OrdersController extends FOSRestController
      *
      * @Rest\Get("/api/get/{id}/order")
      *
+     * @param int $id order id
+     *
      * @return Response
      */
     public function getSingleOrder(int $id): Response
     {
-        $ordersProvider = $this->get('AppBundle\Provider\OrdersProvider');
+        $ordersProvider = $this->get('appbundle\provider\ordersprovider');
         $order = $ordersProvider->getSingle($id);
+
         $serializer = $this->get('jms_serializer');
         $serializer->serialize($order, 'json');
+
         $view = $this->view($order, 200);
         return $this->handleView($view);
     }
 
     /**
-     * This method return only one order
+     * This method return users orders
      *
      * @Rest\Get("/api/panel/user/{id}/get/orders")
+     *
+     * @param int $id user id
      *
      * @return Response
      */
     public function getAllUserOrders(int $id): Response
     {
-        $ordersProvider = $this->get('AppBundle\Provider\OrdersProvider');
+        $ordersProvider = $this->get('appbundle\provider\ordersprovider');
         $orders = $ordersProvider->getAllUsers($id);
+
         $serializer = $this->get('jms_serializer');
         $serializer->serialize($orders, 'json');
+
         $view = $this->view($orders, 200);
         return $this->handleView($view);
     }
@@ -78,8 +93,9 @@ class OrdersController extends FOSRestController
         $form->submit($request->request->all());
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $ordersManager = $this->get('AppBundle\Manager\OrdersManager');
+            $ordersManager = $this->get('appbundle\manager\ordersmanager');
             $ordersManager->add($request->request->all());
+            
             $view = $this->view('succes', 200);
             return $this->handleView($view);
         }
@@ -103,8 +119,9 @@ class OrdersController extends FOSRestController
         $form->submit($request->request->all());
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $ordersManager = $this->get('AppBundle\Manager\OrdersManager');
-            $ordersProvider = $this->get('AppBundle\Provider\OrdersProvider');
+            $ordersManager = $this->get('appbundle\manager\ordersmanager');
+            $ordersProvider = $this->get('appbundle\provider\ordersprovider');
+
             $ordersManager->edit($ordersProvider->getSingle($id), $request->request->all());
             $view = $this->view('succes', 200);
             return $this->handleView($view);
@@ -125,7 +142,7 @@ class OrdersController extends FOSRestController
      */
     public function delOrder(Request $request, int $id): Response
     {
-        $OrdersProvider = $this->get('AppBundle\Manager\OrdersManager');
+        $OrdersProvider = $this->get('appbundle\manager\ordersmanager');
         $OrdersProvider->del($id);
         $view = $this->view('success', 200);
         return $this->handleView($view);
