@@ -13,9 +13,11 @@ use AppBundle\Entity\Products;
  */
 class CategoriesManager extends Manager
 {
-    use ManagerStrategy;
+    use ManagerTrait;
 
     /**
+     * This method added new Category
+     *
      * @param array $params
      * @return bool
      */
@@ -31,6 +33,8 @@ class CategoriesManager extends Manager
     }
 
     /**
+     * This method edit existing category
+     *
      * @param Categories $old
      * @param array $params
      * @return bool
@@ -43,6 +47,8 @@ class CategoriesManager extends Manager
     }
 
     /**
+     * This method del existing category
+     *
      * @param $id
      * @return bool
      */

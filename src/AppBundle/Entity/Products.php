@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\File\File;
  * Products
  *
  * @ORM\Table(name="products", indexes={@ORM\Index(name="fk_products_categories1_idx", columns={"categories_idcategory"}), @ORM\Index(name="fk_products_brands1_idx", columns={"brands_idbrand"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ProductsRepository")
  */
 class Products
 {

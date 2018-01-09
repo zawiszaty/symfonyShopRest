@@ -12,9 +12,11 @@ use AppBundle\Entity\DeliveryMethod;
  */
 class DeliveryMethodManager extends Manager
 {
-    use ManagerStrategy;
+    use ManagerTrait;
 
     /**
+     * This method add new delivery method
+     *
      * @param array $params
      * @return bool
      */
@@ -31,6 +33,8 @@ class DeliveryMethodManager extends Manager
     }
 
     /**
+     * This method edit existing delivery method
+     *
      * @param DeliveryMethod $old
      * @param array $params
      * @return bool
@@ -46,6 +50,8 @@ class DeliveryMethodManager extends Manager
     }
 
     /**
+     * This method del existing delivery method
+     *
      * @param int $id
      * @return bool
      */

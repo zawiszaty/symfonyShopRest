@@ -15,9 +15,10 @@ use AppBundle\Entity\User;
  */
 class OrdersManager extends Manager
 {
-    use ManagerStrategy;
+    use ManagerTrait;
 
     /**
+     * This method add new order
      *
      * @param array $params
      * @return bool
@@ -43,6 +44,7 @@ class OrdersManager extends Manager
     }
 
     /**
+     * This method edit existing order
      *
      * @param Orders $old
      * @param array $params
@@ -60,6 +62,8 @@ class OrdersManager extends Manager
     }
 
     /**
+     * This method edit existing order
+     *
      * @param int $id
      * @return bool
      */

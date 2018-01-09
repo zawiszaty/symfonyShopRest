@@ -13,9 +13,11 @@ use AppBundle\Entity\User;
  */
 class CustomerDataManager extends Manager
 {
-    use ManagerStrategy;
+    use ManagerTrait;
 
     /**
+     * This method added new customer data
+     *
      * @param array $params
      * @return bool
      */
@@ -35,6 +37,8 @@ class CustomerDataManager extends Manager
     }
 
     /**
+     * This method edit existing customer data
+     *
      * @param CustomerData $old
      * @param array $params
      * @return bool
@@ -51,6 +55,8 @@ class CustomerDataManager extends Manager
     }
 
     /**
+     * This method del existing customer data
+     *
      * @param int $id
      * @return bool
      */

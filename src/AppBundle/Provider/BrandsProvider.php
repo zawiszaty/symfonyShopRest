@@ -12,7 +12,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * Class BrandsProvider
  * @package AppBundle\Provider
  */
-class BrandsProvider extends Provider implements ProviderStrategy
+class BrandsProvider extends Provider implements ProviderInterface
 {
 
     /**

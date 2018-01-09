@@ -16,7 +16,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * Class OrdersProvider
  * @package AppBundle\Provider
  */
-class OrdersProvider extends Provider implements ProviderStrategy
+class OrdersProvider extends Provider implements ProviderInterface
 {
     /**
      * This method return all orders

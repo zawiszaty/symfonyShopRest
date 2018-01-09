@@ -168,43 +168,79 @@ class ProductsController extends FOSRestController
     /**
      * This method return all products of the brand
      *
-     * @Rest\Get("/api/all/brands/products/{brand}/{sort}")
+     * @Rest\Get("/api/all/brands/products/{brand}")
      *
      * @param int $brand brands id
-     * @param string $sort sort method
      *
      * @return Response
      */
-    public function getAllBrandsProduct(int $brand, string $sort): Response
+    public function getAllBrandsProduct(int $brand): Response
     {
         $productProvider = $this->get('appbundle\provider\productsprovider');
-        $products = $productProvider->getAllBrands($brand, $sort);
+        $products = $productProvider->getAllBrandsProducts($brand);
 
         $view = $this->view($products, 200);
         return $this->handleView($view);
     }
 
     /**
-     * This method return all products of the brand
+     * This method return all products of the brand and sort him by prize
+     *
+     * @Rest\Get("/api/all/brands/products/{brand}/{sort}")
+     *
+     * @param int $brand brands id
+     * @param string $sort
+     *
+     * @return Response
+     */
+    public function getAllBrandsProduct_SortByPrize(int $brand, string $sort): Response
+    {
+        $productProvider = $this->get('appbundle\provider\productsprovider');
+        $products = $productProvider->getAllBrandsProduct_SortByPrize($brand, $sort);
+
+        $view = $this->view($products, 200);
+        return $this->handleView($view);
+    }
+
+    /**
+     * This method return all products of category
+     *
+     * @Rest\Get("/api/all/categories/products/{categories}")
+     *
+     * @param int $categories categories id
+     *
+     * @return Response
+     */
+    public function getAllCategoryProducts(int $categories): Response
+    {
+        $productProvider = $this->get('appbundle\provider\productsprovider');
+        $products = $productProvider->getAllCategoryProducts($categories);
+
+        $view = $this->view($products, 200);
+        return $this->handleView($view);
+    }
+
+    /**
+     * This method return all products of category
      *
      * @Rest\Get("/api/all/categories/products/{categories}/{sort}")
      *
      * @param int $categories categories id
-     * @param int $sort sort method
+     * @param string $sort sort method
      *
      * @return Response
      */
-    public function getAllCategoriesProduct(int $categories, int $sort): Response
+    public function getAllCategoryProducts_SortByPrize(int $categories, string $sort): Response
     {
         $productProvider = $this->get('appbundle\provider\productsprovider');
-        $products = $productProvider->getAllCategories($categories, $sort);
+        $products = $productProvider->getAllCategoryProducts_SortByPrize($categories, $sort);
 
         $view = $this->view($products, 200);
         return $this->handleView($view);
     }
 
     /**
-     * This method return all products of the orders
+     * This method return all products of order
      *
      * @Rest\Get("/api/all/orders/products/{products}")
      *

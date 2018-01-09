@@ -13,9 +13,11 @@ use Proxies\__CG__\AppBundle\Entity\Products;
  */
 class BrandsManager extends Manager
 {
-    use ManagerStrategy;
+    use ManagerTrait;
 
     /**
+     * This method added new Brand
+     *
      * @param array $params
      * @return bool
      */
@@ -31,6 +33,8 @@ class BrandsManager extends Manager
     }
 
     /**
+     * This method edit existing brand
+     *
      * @param Brands $old
      * @param array $params
      * @return bool
@@ -45,6 +49,8 @@ class BrandsManager extends Manager
     }
 
     /**
+     * This method del existing brand
+     *
      * @param int $id
      * @return bool
      */

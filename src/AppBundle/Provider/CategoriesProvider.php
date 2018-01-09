@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * Class CategoriesProvider
  * @package AppBundle\Provider
  */
-class CategoriesProvider extends Provider implements ProviderStrategy
+class CategoriesProvider extends Provider implements ProviderInterface
 {
 
     /**

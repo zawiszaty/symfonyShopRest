@@ -8,7 +8,7 @@ namespace AppBundle\Manager;
  * Trait ManagerStrategy
  * @package AppBundle\Manager
  */
-trait ManagerStrategy
+trait ManagerTrait
 {
     /**
      * this function add object to database

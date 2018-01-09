@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * Class CustomerDataProvider
  * @package AppBundle\Provider
  */
-class CustomerDataProvider extends Provider implements ProviderStrategy
+class CustomerDataProvider extends Provider implements ProviderInterface
 {
     /**
      * This method return all customer data

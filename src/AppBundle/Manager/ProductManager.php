@@ -14,9 +14,11 @@ use AppBundle\Entity\Products;
  */
 class ProductManager extends Manager
 {
-    use ManagerStrategy;
+    use ManagerTrait;
 
     /**
+     * This method add new product
+     *
      * @param array $params
      * @param $nameMiniature
      * @return bool
@@ -41,6 +43,8 @@ class ProductManager extends Manager
     }
 
     /**
+     * This method edit existing product
+     *
      * @param Products $old
      * @param array $params
      * @param string $name
@@ -64,6 +68,8 @@ class ProductManager extends Manager
     }
 
     /**
+     * This method del existing product
+     *
      * @param int $id
      * @return bool
      */

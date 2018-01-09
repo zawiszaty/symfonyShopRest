@@ -11,7 +11,7 @@ use AppBundle\Entity\DeliveryMethod;
  *
  * @package AppBundle\Provider
  */
-class DeliveryMethodsProvider extends Provider implements ProviderStrategy
+class DeliveryMethodsProvider extends Provider implements ProviderInterface
 {
     /**
      * This method return single delivery method
